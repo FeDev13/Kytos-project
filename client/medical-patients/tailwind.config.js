@@ -10,6 +10,9 @@ export default {
         primary: '#008080',
         secondary: '#fcfbff',
         tertiary: '#003030',
+        logostart: "#293B91",
+        logo: "#344698",
+        logoend: "#4F60A6"
       },
     },
   },
