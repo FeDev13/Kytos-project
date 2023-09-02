@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MyContext } from "../context/PatientContext";
 import { Loader } from "../components/Loader";
 import RegisterImage from "../assets/register-image.svg";
+import logo from "../assets/Logo kytos_page-0001.jpg";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -57,17 +58,17 @@ export const Register = () => {
   };
 
   return (
-    <div className="w-full h-screen m-auto bg-primary flex justify-center items-center p-10">
-      <div className=" w-2/3 gap-10  flex justify-start items-center">
+    <div className="w-full h-screen m-auto bg-logo flex justify-center items-center p-10">
+      <div className="flex-col md:flex-row w-full gap-10  flex justify-start items-center">
         <div className="w-1/2 flex justify-center items-center">
-          <img src={RegisterImage} alt="Register Image" className="w-full" />
+          <img src={logo} alt="Register Image" className="w-full rounded-3xl " />
         </div>
         <div className="w-1/2 h-full  font-PTSans">
           <h1 className="text-4xl text-center font-bold text-secondary">
-            Register
+            Registro
           </h1>
           <p className="text-lg text-center font-bold text-secondary mt-2">
-            Please complete the fields with your data
+            Sr. profesional, complete el formulario con sus datos para registrarse a la plataforma
           </p>
 
           <form
