@@ -15,12 +15,12 @@ export const Topbar = () => {
   };
 
   return (
-    <div className="w-full h-16 shadow-md flex justify-end items-center px-8">
-      <p className="font-PTSans font-bold text-primary mr-5">
-        <span className="underline mr-1">Profesional:</span> {professionalName}
+    <div className="w-full h-16 shadow-md flex justify-end items-center px-8 bg-logo">
+      <p className="font-PTSans font-bold text-white mr-5">
+        <span className="mr-1">Profesional:</span> {professionalName}
       </p>
       <small title="Logout" onClick={() => logout()}>
-        <RiLogoutBoxRLine className="w-7 h-7 text-primary hover:text-tertiary hover:cursor-pointer" />
+        <RiLogoutBoxRLine className="w-7 h-7 text-white hover:text-tertiary hover:cursor-pointer" />
       </small>
     </div>
   );

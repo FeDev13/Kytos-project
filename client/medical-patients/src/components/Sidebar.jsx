@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from "../assets/descarga.jpg";
+import logo from "../assets/Logo kytos_page-0001.jpg";
 import {
   BsFillPersonLinesFill,
   BsFillPersonBadgeFill,
@@ -8,9 +8,13 @@ import {
 
 export const Sidebar = () => {
   return (
-    <div className="bg-primary min-w-max min-h-screen h-auto text-secondary font-PTSans">
-      <div className="mt-11 w-full px-8 font-PTSans text-center">
-        <img src={logo} alt="logo CIS kinesiologia" className=" rounded-lg" />
+    <div className="bg-logo h-[60%] md:min-h-screen md:h-auto text-secondary font-PTSans w-[100%] md:w-[30%]">
+      <div className=" w-full px-8 font-PTSans text-center">
+        <img
+          src={logo}
+          alt="logo CIS kinesiologia"
+          className=" rounded-lg w-[70%] mx-auto"
+        />
         <h1 className="tracking-wide text-2xl my-9 font-bold">Menu</h1>
         <hr />
         <ul className="text-start text-xl">

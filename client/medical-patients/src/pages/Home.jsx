@@ -118,10 +118,11 @@ export const Home = () => {
   };
 
   return (
-    <div className="w-full m-auto bg-secondary flex overflow-y-hidden">
-      <Sidebar />
+    <div className="w-full m-auto bg-secondary overflow-y-hidden md:flex">
       <div className="w-screen font-PTSans">
         <Topbar />
+        <Sidebar />
+
         {loading ? (
           <div className="w-full h-screen m-auto flex justify-center items-center">
             <Loader />
@@ -203,5 +204,3 @@ export const Home = () => {
     </div>
   );
 };
-
-// vicky@talentwind.xyz SAILOR

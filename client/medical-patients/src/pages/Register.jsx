@@ -3,7 +3,6 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { MyContext } from "../context/PatientContext";
 import { Loader } from "../components/Loader";
-import RegisterImage from "../assets/register-image.svg";
 import logo from "../assets/Logo kytos_page-0001.jpg";
 
 export const Register = () => {
@@ -61,14 +60,19 @@ export const Register = () => {
     <div className="w-full h-screen m-auto bg-logo flex justify-center items-center p-10">
       <div className="flex-col md:flex-row w-full gap-10  flex justify-start items-center">
         <div className="w-1/2 flex justify-center items-center">
-          <img src={logo} alt="Register Image" className="w-full rounded-3xl " />
+          <img
+            src={logo}
+            alt="Register Image"
+            className="w-full rounded-3xl "
+          />
         </div>
         <div className="w-1/2 h-full  font-PTSans">
           <h1 className="text-4xl text-center font-bold text-secondary">
             Registro
           </h1>
           <p className="text-lg text-center font-bold text-secondary mt-2">
-            Sr. profesional, complete el formulario con sus datos para registrarse a la plataforma
+            Sr. profesional, complete el formulario con sus datos para
+            registrarse a la plataforma
           </p>
 
           <form
@@ -80,13 +84,13 @@ export const Register = () => {
               type="text"
               name="name"
               value={registerValues.name}
-              placeholder="Name"
+              placeholder="Nombre"
               onChange={handleChange}
             />
             <input
               className="w-full rounded-lg h-11 bg-transparent border border-solid-white outline-none pl-3 font-PTSans text-secondary"
               type="text"
-              name="lastName"
+              name="Apellido"
               value={registerValues.lastName}
               placeholder="Last name"
               onChange={handleChange}
