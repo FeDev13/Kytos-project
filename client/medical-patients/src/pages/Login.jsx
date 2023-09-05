@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Loader } from "../components/Loader";
 import { MyContext } from "../context/PatientContext";
-import LoginImage from "../assets/login-image.svg";
 import logo from "../assets/Logo kytos_page-0001.jpg";
 
 export const Login = () => {
@@ -71,7 +70,11 @@ export const Login = () => {
       <div className="flex justify-center items-center h-screen">
         <div className=" flex-col md:w-2/3 gap-10 md:flex-row  flex justify-start items-center">
           <div className="w-1/2 flex justify-center items-center">
-            <img src={logo} alt="Login Image" className="w-full rounded-3xl border-none" />
+            <img
+              src={logo}
+              alt="Login Image"
+              className="w-full rounded-3xl border-none"
+            />
           </div>
           <div className="w-1/2 h-full  font-PTSans">
             <h2 className="text-4xl text-center font-bold text-secondary">
@@ -134,7 +137,7 @@ export const Login = () => {
             <p className="text-white text-center font-bold mt-2 text-sm">
               En caso de no ser profesional registrado ingrese sus datos
               <small className="font-PTSans  text-white text-sm hover:underline">
-                <Link to={"/register"}>   AQUI</Link>
+                <Link to={"/register"}> AQUI</Link>
               </small>
             </p>
           </div>
