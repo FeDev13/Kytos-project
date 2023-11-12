@@ -13,7 +13,7 @@ router.post(
   [
     check("name", "The name is required").notEmpty(),
     check("lastName", "The last name is required").notEmpty(),
-    check("email", "The email is not valid").isEmail(),
+    check("license", "matricula invalida").isNumeric(),
     check("password", "The password must have at least 6 characters").isLength({
       min: 6,
     }),
@@ -25,10 +25,12 @@ router.post(
     }
 
     try {
-      const { name, lastName, email, password } = req.body;
+      const { name, lastName, password, license } = req.body;
 
       //si esta ya registrado
-      const professionalRegistered = await ProfessionalModel.findOne({ email });
+      const professionalRegistered = await ProfessionalModel.findOne({
+        license,
+      });
       if (professionalRegistered) {
         return res.status(400).json({ msg: "El profesional ya existe" });
       }
@@ -39,8 +41,8 @@ router.post(
       const newProfessional = new ProfessionalModel({
         name,
         lastName,
-        email,
         password: hashedPassword,
+        license,
       });
       await newProfessional.save();
 
@@ -57,8 +59,8 @@ router.post(
 router.post(
   "/login",
   [
-    check("email", "The email is not valid").isEmail(),
-    check("password", "The password must have at least 6 characters").isLength({
+    check("license", "matricula ingresada invalida").isNumeric(),
+    check("password", "contraseña deber tener al menos 6 caracteres").isLength({
       min: 6,
     }),
   ],
@@ -70,7 +72,7 @@ router.post(
 
     try {
       const { email, password } = req.body;
-      const professionalLogin = await ProfessionalModel.findOne({ email });
+      const professionalLogin = await ProfessionalModel.findOne({ license });
       if (!professionalLogin) {
         return res.status(400).json({ msg: "El profesional no existe" });
       }
@@ -90,7 +92,7 @@ router.post(
         msg: "Inicio de sesion exitoso",
         token,
         professionalID: professionalLogin._id,
-        professionalName: `${professionalLogin.name} - ${professionalLogin.lastName}`,
+        professionalName: `${professionalLogin.name} ${professionalLogin.lastName}`,
       });
     } catch (error) {
       console.log(error);
