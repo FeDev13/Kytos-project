@@ -166,17 +166,17 @@ export const RegisterNewPatients = () => {
         {/* CONTAINER FORM REGISTER PATIENT PAGE */}
         <div className="w-full h-screen font-PTSans bg-logo absolute -mt-96 md:relative md:mt-0">
           {/* FORM SECTION */}
-          <div className="p-4 h-[calc(100%-64px) bg-white w-[70%] mx-auto rounded-md">
-            <h1 className="text-center w-3/4 m-auto px-4 font-PTSans font-bold text-3xl text-logo">
+          <div className="p-4 h-[calc(100%-64px) w-[70%] mx-auto rounded-md bg-white">
+            <h1 className="text-center w-3/4 m-auto px-4 font-PTSans font-bold text-3xl text-logo bg-white">
               Ingrese paciente nuevo{" "}
             </h1>
-            <div className="m-auto p-4 flex justify-center items-center mt-8 ">
+            <div className="m-auto p-4 flex justify-center items-center mt-8 bg-white ">
               <form
-                className=" flex flex-col w-80 max-w-xl"
+                className=" flex flex-col w-80 max-w-xl bg-white"
                 onSubmit={handleSubmit}
               >
                 <label
-                  className="font-PTSans font-bold text-logo text-lg "
+                  className="font-PTSans font-bold text-logo text-lg bg-white "
                   htmlFor="name"
                 >
                   Nombre:
@@ -191,7 +191,7 @@ export const RegisterNewPatients = () => {
                   autoComplete="off"
                 />
                 <label
-                  className="font-PTSans font-bold text-logo text-lg mt-2"
+                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
                   htmlFor="lastName"
                 >
                   Apellido:
@@ -206,7 +206,7 @@ export const RegisterNewPatients = () => {
                   autoComplete="off"
                 />
                 <label
-                  className="font-PTSans font-bold text-logo text-lg mt-2"
+                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
                   htmlFor="age"
                 >
                   Edad:
@@ -221,10 +221,10 @@ export const RegisterNewPatients = () => {
                   autoComplete="off"
                 />
                 <label
-                  className="font-PTSans font-bold text-logo text-lg mt-2"
+                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
                   htmlFor="weight"
                 >
-                  Peso <i>(kg)</i>:
+                  Peso (kg):
                 </label>
                 <input
                   className="rounded-sm h-7 bg-transparent border border-solid border-tertiary outline-none px-3 py-1 font-PTSans text-terborder-tertiary "
@@ -236,10 +236,10 @@ export const RegisterNewPatients = () => {
                   autoComplete="off"
                 />
                 <label
-                  className="font-PTSans font-bold text-logo text-lg mt-2"
+                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
                   htmlFor="height"
                 >
-                  Altura <i>(cms)</i>:
+                  Altura (cms):
                 </label>
                 <input
                   className="rounded-sm h-7 bg-transparent border border-solid border-tertiary outline-none px-3 py-1 font-PTSans text-terborder-tertiary "
@@ -251,7 +251,7 @@ export const RegisterNewPatients = () => {
                   autoComplete="off"
                 />
                 <label
-                  className="font-PTSans font-bold text-logo text-lg mt-2"
+                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
                   htmlFor="symptoms"
                 >
                   Sintomas:
@@ -272,7 +272,7 @@ export const RegisterNewPatients = () => {
                   ))}
                 </div>
                 <button
-                  className="w-fit px-6 font-semibold rounded-xl h-7 bg-transparent border border-logo text-black shadow-lg hover:bg-green-600 hover:text-white hover:transition-all disabled:opacity-20 disabled:cursor-not-allowed"
+                  className="w-fit px-6 font-semibold rounded-lg h-7 bg-transparent border border-green-600 text-black shadow-lg hover:bg-green-600 hover:text-white hover:transition-all disabled:opacity-20 disabled:cursor-not-allowed"
                   type="button"
                   onClick={addSymptoms}
                   disabled={newPatient.symptoms.includes("")}
@@ -280,7 +280,7 @@ export const RegisterNewPatients = () => {
                   Agregar sintomas
                 </button>
                 <label
-                  className="font-PTSans font-bold text-logo text-lg mt-2"
+                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
                   htmlFor="diagnostic"
                 >
                   Diagnostico:
@@ -296,7 +296,7 @@ export const RegisterNewPatients = () => {
                   rows={2}
                 />
                 <label
-                  className="font-PTSans font-bold text-logo text-lg mt-2"
+                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
                   htmlFor="image"
                 >
                   Foto de perfil:
@@ -315,9 +315,9 @@ export const RegisterNewPatients = () => {
                     <Loader />
                   </div>
                 )}
-                <div className="my-4">
+                <div className="my-4  text-center bg-white">
                   <button
-                    className="w-full font-semibold rounded-xl h-7 bg-transparent border-2 border-logo text-logo  shadow-lg hover:bg-logo hover:text-white hover:transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-[50%] mx-auto font-semibold rounded-lg p-1 bg-transparent border-2 border-logo text-logo  shadow-lg hover:bg-logo hover:text-white hover:transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     type="submit"
                     disabled={isDisabled()}
                   >
@@ -328,7 +328,7 @@ export const RegisterNewPatients = () => {
                 </div>
 
                 <Link
-                  className="w-full font-semibold rounded-xl  border border-black text-black bg-secondary shadow-lg hover:bg-red-600 hover:text-white hover:transition-all text-center"
+                  className="w-[50%] mx-auto font-semibold rounded-lg p-1  border border-red-400 text-black bg-secondary shadow-lg hover:bg-red-600 hover:text-white hover:transition-all text-center"
                   to="/home"
                 >
                   Cerrar

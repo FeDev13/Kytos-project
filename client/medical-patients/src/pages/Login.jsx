@@ -8,7 +8,7 @@ import logo from "../assets/Logo kytos_page-0001.jpg";
 
 export const Login = () => {
   const [loginValues, setLoginValues] = useState({
-    email: "",
+    license: Number,
     password: "",
   });
   const {
@@ -81,7 +81,7 @@ export const Login = () => {
               Login
             </h2>
             <p className="text-lg text-center font-bold text-secondary mt-2">
-              Ingrese su email y contraseña
+              Ingrese su matricula y contraseña
             </p>
 
             <form
@@ -90,10 +90,10 @@ export const Login = () => {
             >
               <input
                 className="w-full rounded-lg h-11 bg-white border border-solid-white outline-none pl-3 font-PTSans text-black"
-                type="email"
-                name="email"
-                value={loginValues.email}
-                placeholder="Email"
+                type="text"
+                name="license"
+                value={loginValues.license}
+                placeholder="Matricula"
                 onChange={handleChange}
               />
               <input
@@ -128,7 +128,7 @@ export const Login = () => {
                 className="w-full rounded-lg h-11 bg-white border-2 border-secondary text-black shadow-lg disabled:opacity-30 disabled:cursor-not-allowed"
                 type="submit"
                 disabled={
-                  loginValues.email === "" || loginValues.password === ""
+                  loginValues.license === "" || loginValues.password === ""
                 }
               >
                 Login

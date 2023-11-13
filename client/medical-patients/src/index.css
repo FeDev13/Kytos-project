@@ -3,15 +3,17 @@
 @tailwind utilities;
 
 @layer base {
-  input[type='number']::-webkit-outer-spin-button,
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number'] {
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"] {
     -webkit-appearance: none;
     margin: 0;
     -moz-appearance: textfield !important;
   }
 }
-
+* {
+  background-color: #344698;
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

@@ -1,19 +1,19 @@
-import {Route, Routes, Navigate} from 'react-router-dom';
-import {Login} from './pages/Login';
-import {Register} from './pages/Register';
-import {Home} from './pages/Home';
-import {UrgentPatients} from './pages/UrgentPatients';
-import {RegisterNewPatients} from './pages/RegisterNewPatients';
-import {useCookies} from 'react-cookie';
-import {MyContextProvider} from './context/PatientContext';
+import { Route, Routes, Navigate } from "react-router-dom";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
+import { Home } from "./pages/Home";
+import { UrgentPatients } from "./pages/UrgentPatients";
+import { RegisterNewPatients } from "./pages/RegisterNewPatients";
+import { useCookies } from "react-cookie";
+import { MyContextProvider } from "./context/PatientContext";
 
 function App() {
-  const [cookies] = useCookies(['access_token']);
+  const [cookies] = useCookies(["access_token"]);
   const isAuthenticated = cookies.access_token;
 
   return (
     <MyContextProvider>
-      <div className="w-full h-screen m-auto">
+      <div className="w-full h-screen m-auto bg-logo">
         <Routes>
           {!isAuthenticated && (
             <>

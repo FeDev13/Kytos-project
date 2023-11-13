@@ -10,7 +10,7 @@ export const Register = () => {
   const [registerValues, setRegisterValues] = useState({
     name: "",
     lastName: "",
-    email: "",
+    license: "",
     password: "",
   });
 
@@ -90,17 +90,9 @@ export const Register = () => {
             <input
               className="w-full rounded-lg h-11 bg-transparent border border-solid-white outline-none pl-3 font-PTSans text-secondary"
               type="text"
-              name="Apellido"
+              name="lastName"
               value={registerValues.lastName}
               placeholder="Last name"
-              onChange={handleChange}
-            />
-            <input
-              className="w-full rounded-lg h-11 bg-transparent border border-solid-white outline-none pl-3 font-PTSans text-secondary"
-              type="text"
-              name="email"
-              value={registerValues.email}
-              placeholder="Email"
               onChange={handleChange}
             />
             <input
@@ -109,6 +101,14 @@ export const Register = () => {
               name="password"
               value={registerValues.password}
               placeholder="Password"
+              onChange={handleChange}
+            />
+            <input
+              className="w-full rounded-lg h-11 bg-transparent border border-solid-white outline-none pl-3 font-PTSans text-secondary"
+              type="text"
+              name="license"
+              value={registerValues.license}
+              placeholder="Matricula/DNI"
               onChange={handleChange}
             />
             {loadingAuth ? (
@@ -133,7 +133,7 @@ export const Register = () => {
               disabled={
                 registerValues.name === "" ||
                 registerValues.lastName === "" ||
-                registerValues.email === "" ||
+                registerValues.license === "" ||
                 registerValues.password === ""
               }
             >
@@ -141,9 +141,9 @@ export const Register = () => {
             </button>
           </form>
           <p className="text-white text-center font-bold mt-2 text-sm">
-            Already have an Account?{" "}
-            <small className="font-PTSans italic text-tertiary text-sm hover:underline">
-              <Link to={"/"}>Login!</Link>
+            Si ya esta registrado ingrese{" "}
+            <small className="font-PTSans text-white text-lg underline">
+              <Link to={"/"}>aqui</Link>
             </small>
           </p>
         </div>

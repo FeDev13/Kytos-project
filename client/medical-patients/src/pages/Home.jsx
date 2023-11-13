@@ -130,8 +130,8 @@ export const Home = () => {
           <>
             {/*!!!!!!!!!! {patients.length === 0 ? 'Aun no tienes pacientes' : null} */}
 
-            <div className="p-4 flex-col lg:grid grid-cols-3 gap-4 w-full m-auto overflow-y-auto">
-              <h1 className="w-3/4 m-auto my-5 px-4 font-PTSans font-bold text-3xl text-logo">
+            <div className="p-4 flex-col lg:grid grid-cols-3 gap-4 w-full m-auto overflow-y-auto bg-logo">
+              <h1 className="w-3/4 m-auto my-5 px-4 font-PTSans font-bold text-3xl text-white">
                 Pacientes
               </h1>
               {viewModal && (
@@ -143,10 +143,10 @@ export const Home = () => {
               {patients.map((el) => (
                 <div
                   key={el._id}
-                  className={`w-full my-10 flex flex-col justify-center items-center p-2 rounded-md font-PTSans text-center text-lg text-secondary gap-2 shadow-md shadow-slate-400 ${
+                  className={`w-[90%] my-10 flex flex-col justify-center items-center p-2 rounded-md font-PTSans text-center text-lg text-secondary gap-2 shadow-md shadow-slate-400 ${
                     urgentPatientsIDs.includes(el._id)
                       ? "bg-gradient-to-br from-[#a04070] to-[#700038]"
-                      : "bg-gradient-to-br from-logostart to-logoend"
+                      : "bg-white"
                   }`}
                 >
                   <div className="w-28 h-w-28 rounded-full">
@@ -156,28 +156,28 @@ export const Home = () => {
                       alt="Paciente Avatar"
                     />
                   </div>
-                  <p className="capitalize text-secondary">
-                    {el.name} - {el.lastName}
+                  <p className="capitalize  bg-white text-black">
+                    {el.name} {el.lastName}
                   </p>
-                  <div className="w-3/4 m-auto gap-2 font-semibold">
+                  <div className="w-3/4 m-auto gap-2 font-semibold bg-white">
                     <button
-                      className="w-full px-2 rounded-xl border border-secondary bg-blue-700 hover:bg-blue-500 hover:text-secondary hover:transition-all"
+                      className="w-[50%] p-2 rounded-lg bg-blue-700 hover:bg-blue-500 hover:text-secondary hover:transition-all"
                       onClick={() => seeIndicatorsPatient(el)}
                     >
                       Ver informacion
                     </button>
                   </div>
-                  <div className="w-3/4 m-auto gap-2 font-semibold">
+                  <div className="w-3/4 m-auto gap-2 font-semibold bg-white">
                     <button
-                      className="w-full px-2 rounded-xl border border-secondary bg-gray-400 hover:bg-gray-200 hover:text-black hover:transition-all"
+                      className="w-[50%] p-2 rounded-lg bg-gray-400 hover:bg-gray-200 hover:text-black hover:transition-all"
                       onClick={() => navigate(`/update/${el._id}`)}
                     >
                       Editar informacion
                     </button>
                   </div>
-                  <div className="w-3/4 m-auto gap-2 font-semibold">
+                  <div className="w-3/4 m-auto gap-2 font-semibold bg-white">
                     <button
-                      className="w-full px-2 rounded-xl border border-secondary bg-yellow-600 hover:bg-yellow-400 hover:text-secondary hover:transition-all disabled:cursor-not-allowed disabled:opacity-40 disabled:bg-secondary disabled:text-slate-800 disabled:border border-b-secondary"
+                      className="w-[50%] p-2 rounded-lg bg-yellow-600 hover:bg-yellow-400 hover:text-secondary hover:transition-all disabled:cursor-not-allowed disabled:opacity-40 disabled:bg-secondary disabled:text-slate-800 disabled:border border-b-secondary"
                       onClick={() => savedUrgentPatient(el._id)}
                       disabled={urgentPatientsIDs.includes(el._id)}
                     >
@@ -186,9 +186,9 @@ export const Home = () => {
                         : "Establecer como urgente"}
                     </button>
                   </div>
-                  <div className="w-3/4 m-auto gap-2 font-semibold">
+                  <div className="w-3/4 m-auto gap-2 font-semibold bg-white">
                     <button
-                      className="w-full px-2 rounded-xl border border-secondary bg-red-700 hover:bg-red-500 hover:text-secondary hover:transition-all"
+                      className="w-[50%] p-2 rounded-lg bg-red-700 hover:bg-red-500 hover:text-secondary hover:transition-all"
                       onClick={() => deletePatient(el)}
                     >
                       Eliminar
