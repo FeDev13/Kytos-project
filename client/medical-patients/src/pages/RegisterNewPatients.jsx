@@ -97,7 +97,7 @@ export const RegisterNewPatients = () => {
         newPatient
       );
       setLoadingRegisterPatient(false);
-      toast.success("The patient was successfully updated", {
+      toast.success("Paciente registrado exitosamente", {
         position: toast.POSITION.TOP_RIGHT,
       });
 

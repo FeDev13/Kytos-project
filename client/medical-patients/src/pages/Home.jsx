@@ -156,10 +156,10 @@ export const Home = () => {
                       alt="Paciente Avatar"
                     />
                   </div>
-                  <p className="capitalize  bg-white text-black">
+                  <p className="capitalize  bg-transparent text-black font-semibold">
                     {el.name} {el.lastName}
                   </p>
-                  <div className="w-3/4 m-auto gap-2 font-semibold bg-white">
+                  <div className="w-3/4 m-auto gap-2 font-semibold bg-transparent">
                     <button
                       className="w-[50%] p-2 rounded-lg bg-blue-700 hover:bg-blue-500 hover:text-secondary hover:transition-all"
                       onClick={() => seeIndicatorsPatient(el)}
@@ -167,7 +167,7 @@ export const Home = () => {
                       Ver informacion
                     </button>
                   </div>
-                  <div className="w-3/4 m-auto gap-2 font-semibold bg-white">
+                  <div className="w-3/4 m-auto gap-2 font-semibold bg-transparent">
                     <button
                       className="w-[50%] p-2 rounded-lg bg-gray-400 hover:bg-gray-200 hover:text-black hover:transition-all"
                       onClick={() => navigate(`/update/${el._id}`)}
@@ -175,7 +175,7 @@ export const Home = () => {
                       Editar informacion
                     </button>
                   </div>
-                  <div className="w-3/4 m-auto gap-2 font-semibold bg-white">
+                  <div className="w-3/4 m-auto gap-2 font-semibold bg-transparent">
                     <button
                       className="w-[50%] p-2 rounded-lg bg-yellow-600 hover:bg-yellow-400 hover:text-secondary hover:transition-all disabled:cursor-not-allowed disabled:opacity-40 disabled:bg-secondary disabled:text-slate-800 disabled:border border-b-secondary"
                       onClick={() => savedUrgentPatient(el._id)}
@@ -186,7 +186,7 @@ export const Home = () => {
                         : "Establecer como urgente"}
                     </button>
                   </div>
-                  <div className="w-3/4 m-auto gap-2 font-semibold bg-white">
+                  <div className="w-3/4 m-auto gap-2 font-semibold bg-transparent">
                     <button
                       className="w-[50%] p-2 rounded-lg bg-red-700 hover:bg-red-500 hover:text-secondary hover:transition-all"
                       onClick={() => deletePatient(el)}

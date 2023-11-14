@@ -19,7 +19,7 @@ export const Sidebar = () => {
         <hr />
         <ul className="text-start text-xl">
           <NavLink to="/home">
-            <li className="my-5 flex justify-start items-center w-full hover:text-tertiary hover: transition-colors">
+            <li className="my-5 flex justify-start items-center w-full hover:text-green-600">
               {" "}
               <span className="flex items-center">
                 <BsFillPersonLinesFill className="w-8 h-w-8" />
@@ -28,13 +28,8 @@ export const Sidebar = () => {
             </li>
           </NavLink>
           <hr />
-          <NavLink
-            to="/urgentPatients"
-            className={({ isActive }) =>
-              isActive ? "text-tertiary" : "text-secondary"
-            }
-          >
-            <li className="my-5 flex justify-start items-center hover:text-tertiary hover: transition-colors">
+          <NavLink to="/urgentPatients">
+            <li className="my-5 flex justify-start items-center hover:text-green-600">
               {" "}
               <span className="flex items-center">
                 <BsFillPersonBadgeFill className="w-8 h-w-8" />

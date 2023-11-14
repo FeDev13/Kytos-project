@@ -56,8 +56,9 @@ export const UrgentPatients = () => {
       lastName.charAt(0).toUpperCase() + lastName.slice(1);
     const patientID = _id;
     let isDelete = window.confirm(
-      `Remove ${formatedName} - ${formatedLastName} from Urgent patients?`
+      `Remove ${formatedName}  ${formatedLastName} from Urgent patients?`
     );
+
     if (isDelete) {
       try {
         await axios.delete(
@@ -78,7 +79,7 @@ export const UrgentPatients = () => {
       <Sidebar />
       <div className="w-screen h-screen font-PTSans overflow-y-auto">
         <Topbar />
-        <h1 className="w-3/4 m-auto my-5 px-4 font-PTSans font-bold text-3xl text-primary ">
+        <h1 className="w-3/4 m-auto my-5 px-4 font-PTSans font-bold text-3xl text-white ">
           Pacientes urgentes
         </h1>
         {loading ? (
@@ -105,8 +106,8 @@ export const UrgentPatients = () => {
                     alt="Paciente Avatar"
                   />
                 </div>
-                <p className="capitalize text-secondary">
-                  {el.name} - {el.lastName}
+                <p className="capitalize text-secondary bg-transparent">
+                  {el.name} {el.lastName}
                 </p>
                 <div className="w-3/4 m-auto gap-2 font-semibold">
                   <button

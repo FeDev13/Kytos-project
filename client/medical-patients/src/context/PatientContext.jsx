@@ -1,17 +1,21 @@
-import {createContext, useState} from 'react';
+import { createContext, useState } from "react";
+import PropTypes from "prop-types";
 
 // Crea el contexto
 export const MyContext = createContext();
 // Proveedor del contexto
-export const MyContextProvider = ({children}) => {
+export const MyContextProvider = ({ children }) => {
+  MyContextProvider.propTypes = {
+    children: PropTypes.any,
+  };
   const [patients, setPatients] = useState([]);
   const [urgentPatientsIDs, setUrgentPatientsIDs] = useState([]);
   const [urgentsPatients, setUrgentsPatients] = useState([]);
   const [indicatorsPatient, setIndicatorsPatient] = useState(null);
   const [loading, setLoading] = useState(true);
   const [viewModal, setViewModal] = useState(false);
-  const [errorMsgBack, setErrorMsgBack] = useState('');
-  const [errorMsgValidator, setErrorMsgValidator] = useState('');
+  const [errorMsgBack, setErrorMsgBack] = useState("");
+  const [errorMsgValidator, setErrorMsgValidator] = useState("");
   const [loadingRegisterPatient, setLoadingRegisterPatient] = useState(false);
   const [loadingAuth, setLoadingAuth] = useState(false);
 
