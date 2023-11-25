@@ -1,11 +1,19 @@
 /* eslint-disable react/prop-types */
 
 export const Modal = ({ indicatorsPatient, setViewModal }) => {
-  const { name, lastName, age, height, weight, diagnostic, symptoms } =
-    indicatorsPatient;
+  const {
+    name,
+    lastName,
+    age,
+    height,
+    weight,
+    diagnostic,
+    symptoms,
+    appointment,
+  } = indicatorsPatient;
   return (
     <>
-      <div className=" w-[50%] mx-auto justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none backdrop-blur-sm bg-white/30">
+      <div className=" w-[100%] mx-auto justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none backdrop-blur-sm bg-white/30">
         <div className="relative my-6 mx-auto max-w-3xl w-96">
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -46,6 +54,9 @@ export const Modal = ({ indicatorsPatient, setViewModal }) => {
                   ))}
                 <li className="text-slate-500 font-PTSans my-1 text-center bg-white">
                   Diagnostico: {diagnostic}.
+                </li>
+                <li className="text-slate-500 font-PTSans my-1 text-center bg-white">
+                  Proxima cita: {appointment}.
                 </li>
               </ul>
             </div>

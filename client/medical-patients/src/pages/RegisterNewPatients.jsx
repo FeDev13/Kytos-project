@@ -8,10 +8,17 @@ import { Topbar } from "../components/Topbar";
 import { MyContext } from "../context/PatientContext";
 import { Loader } from "../components/Loader";
 import { useCookies } from "react-cookie";
+import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css";
+
+import "react-time-picker/dist/TimePicker.css";
+import "react-clock/dist/Clock.css";
 
 export const RegisterNewPatients = () => {
   const professionalID = window.localStorage.getItem("professionalID");
   const [cookies] = useCookies(["access_token"]);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState(null);
   const { loadingRegisterPatient, setLoadingRegisterPatient } =
     useContext(MyContext);
 
@@ -35,6 +42,22 @@ export const RegisterNewPatients = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const tomorrow = new Date(); // Get today's date
+    tomorrow.setDate(tomorrow.getDate() + 1); // Set the date to tomorrow
+
+    // Formatting the date to display nicely (e.g., "Monday, November 25, 2023")
+    const options = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate = tomorrow.toLocaleDateString(undefined, options);
+
+    setAppointmentDate(formattedDate); // Set the appointment date
+  }, []);
+
   const [newPatient, setNewPatient] = useState({
     name: "",
     lastName: "",
@@ -44,6 +67,7 @@ export const RegisterNewPatients = () => {
     diagnostic: "",
     symptoms: [],
     image: "",
+    appointment: "",
     professionalID: professionalID,
   });
 
@@ -80,6 +104,7 @@ export const RegisterNewPatients = () => {
         diagnostic: "",
         symptoms: [],
         image: "",
+        appointment: "",
         professionalID: professionalID,
       });
     } catch (error) {
@@ -134,6 +159,21 @@ export const RegisterNewPatients = () => {
     });
   };
 
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
+
+  const scheduleAppointment = () => {
+    // If a date is selected, update the appointment date
+    if (selectedDate) {
+      setNewPatient({
+        ...newPatient,
+        appointment: selectedDate,
+      });
+      setAppointmentDate(selectedDate);
+    }
+  };
+
   const handleSubmit = async (e) => {
     //console.log(newPatient);
     e.preventDefault();
@@ -166,7 +206,7 @@ export const RegisterNewPatients = () => {
         {/* CONTAINER FORM REGISTER PATIENT PAGE */}
         <div className="w-full h-screen font-PTSans bg-logo absolute -mt-96 md:relative md:mt-0">
           {/* FORM SECTION */}
-          <div className="p-4 h-[calc(100%-64px) w-[70%] mx-auto rounded-md bg-white">
+          <div className="p-4 h-[calc(100%-64px) w-[90%] lg:w-[70%] mx-auto rounded-md bg-white">
             <h1 className="text-center w-3/4 m-auto px-4 font-PTSans font-bold text-3xl text-logo bg-white">
               Ingrese paciente nuevo{" "}
             </h1>
@@ -256,7 +296,7 @@ export const RegisterNewPatients = () => {
                 >
                   Sintomas:
                 </label>
-                <div className="w-full grid grid-cols-2 justify-center gap-1">
+                <div className="w-full grid grid-cols-2 justify-center gap-1 bg-white">
                   {newPatient.symptoms.map((el, index) => (
                     <input
                       className="w-full rounded-sm h-7 bg-transparent border border-solid border-tertiary outline-none px-3 py-1 font-PTSans text-terborder-tertiary  text-center"
@@ -272,7 +312,7 @@ export const RegisterNewPatients = () => {
                   ))}
                 </div>
                 <button
-                  className="w-fit px-6 font-semibold rounded-lg h-7 bg-transparent border border-green-600 text-black shadow-lg hover:bg-green-600 hover:text-white hover:transition-all disabled:opacity-20 disabled:cursor-not-allowed"
+                  className="w-fit my-10 px-6 font-semibold rounded-lg h-7 bg-transparent border border-green-600 text-black shadow-lg hover:bg-green-600 hover:text-white hover:transition-all disabled:opacity-20 disabled:cursor-not-allowed"
                   type="button"
                   onClick={addSymptoms}
                   disabled={newPatient.symptoms.includes("")}
@@ -310,6 +350,34 @@ export const RegisterNewPatients = () => {
                     setNewPatient({ ...newPatient, image: e.target.files[0] })
                   }
                 />
+                <label
+                  className="font-PTSans font-bold text-logo text-lg  bg-white my-8"
+                  htmlFor="image"
+                >
+                  Seleccionar proximo turno:
+                </label>{" "}
+                <div className="flex-col">
+                  <input
+                    type="date"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                  />
+                  <div>
+                    <button
+                      className="w-[50%] mx-auto font-semibold rounded-lg p-1 bg-green-500 text-white my-8"
+                      onClick={scheduleAppointment}
+                    >
+                      Agendar
+                    </button>
+
+                    {appointmentDate && (
+                      <p className="font-PTSans font-bold text-logo text-lg  bg-white">
+                        El proximo turno es :{" "}
+                        {moment(selectedDate).format("DD-MM-YYYY")}
+                      </p>
+                    )}
+                  </div>
+                </div>
                 {loadingRegisterPatient && (
                   <div className="w-full m-auto flex justify-center items-center mt-2">
                     <Loader />
@@ -326,7 +394,6 @@ export const RegisterNewPatients = () => {
                       : "Registrar nuevo paciente"}
                   </button>
                 </div>
-
                 <Link
                   className="w-[50%] mx-auto font-semibold rounded-lg p-1  border border-red-400 text-black bg-secondary shadow-lg hover:bg-red-600 hover:text-white hover:transition-all text-center"
                   to="/home"

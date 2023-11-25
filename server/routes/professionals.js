@@ -71,7 +71,7 @@ router.post(
     }
 
     try {
-      const { email, password } = req.body;
+      const { license, password } = req.body;
       const professionalLogin = await ProfessionalModel.findOne({ license });
       if (!professionalLogin) {
         return res.status(400).json({ msg: "El profesional no existe" });
