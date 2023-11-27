@@ -4,6 +4,7 @@ import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { UrgentPatients } from "./pages/UrgentPatients";
 import { RegisterNewPatients } from "./pages/RegisterNewPatients";
+import { MedicalHistory } from "./pages/medicalHistory";
 import { useCookies } from "react-cookie";
 import { MyContextProvider } from "./context/PatientContext";
 
@@ -13,7 +14,7 @@ function App() {
 
   return (
     <MyContextProvider>
-      <div className="w-full h-screen m-auto bg-logo">
+      <div className="w-full h-screen m-auto bg-white">
         <Routes>
           {!isAuthenticated && (
             <>
@@ -35,6 +36,7 @@ function App() {
                 path="/*"
                 element={<Navigate to="/home" replace={true} />}
               />
+              <Route path="/medicalhistory" element={<MedicalHistory />} />
             </>
           )}
         </Routes>

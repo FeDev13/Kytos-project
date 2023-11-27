@@ -208,7 +208,7 @@ export const RegisterNewPatients = () => {
           {/* FORM SECTION */}
           <div className="p-4 h-[calc(100%-64px) w-[90%] lg:w-[70%] mx-auto rounded-md bg-white">
             <h1 className="text-center w-3/4 m-auto px-4 font-PTSans font-bold text-3xl text-logo bg-white">
-              Ingrese paciente nuevo{" "}
+              Ingreso/modificacion paciente{" "}
             </h1>
             <div className="m-auto p-4 flex justify-center items-center mt-8 bg-white ">
               <form

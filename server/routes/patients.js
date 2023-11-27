@@ -7,6 +7,19 @@ const { verifyToken } = require("./professionals");
 
 const router = express.Router();
 
+//GET ALL PATIENTS
+router.get("/allPatients", async (req, res) => {
+  try {
+    const patients = await PatientModel.find({});
+
+    res.status(200).json(patients);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Ha ocurrido un error al obtener los pacientes" });
+  }
+});
+
 //GET - ALL PATIENTS FOR THE PROFESSIONAL WHO IS LOGIN
 router.get("/homePatients", async (req, res) => {
   try {
@@ -53,6 +66,19 @@ router.get("/entireUrgentPatients", async (req, res) => {
     res.json({ urgentPatients });
   } catch (error) {
     res.json({ error: "Ha ocurrido un error al obtener los pacientes" });
+  }
+});
+
+//GET PATIENTS BY ID
+router.get("/:patientID", async (req, res) => {
+  const { patientID } = req.params;
+
+  try {
+    const patient = await PatientModel.findById(patientID);
+    return res.status(200).json(patient);
+  } catch (error) {
+    console.error("Error al buscar paciente:", error);
+    return res.status(500).json({ error: "Error del servidor" });
   }
 });
 
@@ -103,6 +129,7 @@ router.post("/registerPatient", verifyToken, async (req, res) => {
     const professional = await ProfessionalModel.findById(professionalID);
 
     const newPatient = new PatientModel({
+      dni: req.body.dni,
       name: req.body.name,
       lastName: req.body.lastName,
       age: req.body.age,
@@ -112,6 +139,7 @@ router.post("/registerPatient", verifyToken, async (req, res) => {
       diagnostic: req.body.diagnostic,
       symptoms: req.body.symptoms,
       appointment: req.body.appointment,
+      medicalEntity: req.body.medicalEntity,
       professional: req.body.professionalID,
     });
 

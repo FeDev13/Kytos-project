@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const PatientSchema = new Schema({
+  dni: { type: Number, required: true },
   name: { type: String, trim: true, required: true },
   lastName: { type: String, trim: true, required: true },
   age: { type: Number, required: true },
@@ -13,6 +14,7 @@ const PatientSchema = new Schema({
   diagnostic: { type: String, trim: true, required: true },
   symptoms: [{ type: String }],
   appointment: { type: String },
+  medicalEntity: { type: String },
   professional: {
     type: Schema.Types.ObjectId,
     ref: "Professional",

@@ -11,11 +11,14 @@ import { MyContext } from "../context/PatientContext";
 import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
+  const professionalName = window.localStorage.getItem("professionalName");
   const professionalID = window.localStorage.getItem("professionalID");
   const [cookies] = useCookies(["access_token"]);
   const {
     patients,
     setPatients,
+    patientId,
+    setPatientId,
     urgentPatientsIDs,
     setUrgentPatientsIDs,
     urgentsPatients,
@@ -38,9 +41,7 @@ export const Home = () => {
 
   const getPatientsForThisProfessional = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5055/patients/homePatients?professionalID=${professionalID}`
-      );
+      const res = await axios.get(`http://localhost:5055/patients/allPatients`);
       setPatients(res.data);
     } catch (error) {
       console.log(error);
@@ -130,8 +131,8 @@ export const Home = () => {
           <>
             {/*!!!!!!!!!! {patients.length === 0 ? 'Aun no tienes pacientes' : null} */}
 
-            <div className="p-4 flex-col lg:grid grid-cols-3 gap-4 w-full m-auto overflow-y-auto bg-logo">
-              <h1 className="w-3/4 m-auto my-5 px-4 font-PTSans font-bold text-3xl text-white">
+            <div className="p-4 flex-col gap-4 w-full  overflow-y-auto ">
+              <h1 className="w-3/4 m-auto px-4 font-PTSans font-bold text-3xl text-logo">
                 Pacientes
               </h1>
               {viewModal && (
@@ -140,62 +141,104 @@ export const Home = () => {
                   setViewModal={setViewModal}
                 />
               )}
-              {patients.map((el) => (
-                <div
-                  key={el._id}
-                  className={`w-[90%] my-10 flex flex-col justify-center items-center p-2 rounded-md font-PTSans text-center text-lg text-secondary gap-2 shadow-md shadow-slate-400 ${
-                    urgentPatientsIDs.includes(el._id)
-                      ? "bg-gradient-to-br from-[#a04070] to-[#700038]"
-                      : "bg-white"
-                  }`}
-                >
-                  <div className="w-28 h-w-28 rounded-full">
-                    <img
-                      className="rounded-full shadow-sm shadow-secondary"
-                      src={el.image.url}
-                      alt="Paciente Avatar"
-                    />
-                  </div>
-                  <p className="capitalize  bg-transparent text-black font-semibold">
-                    {el.name} {el.lastName}
-                  </p>
-                  <div className="w-3/4 m-auto gap-2 font-semibold bg-transparent">
-                    <button
-                      className="w-[50%] p-2 rounded-lg bg-blue-700 hover:bg-blue-500 hover:text-secondary hover:transition-all"
-                      onClick={() => seeIndicatorsPatient(el)}
-                    >
-                      Ver informacion
-                    </button>
-                  </div>
-                  <div className="w-3/4 m-auto gap-2 font-semibold bg-transparent">
-                    <button
-                      className="w-[50%] p-2 rounded-lg bg-gray-400 hover:bg-gray-200 hover:text-black hover:transition-all"
-                      onClick={() => navigate(`/update/${el._id}`)}
-                    >
-                      Editar informacion
-                    </button>
-                  </div>
-                  <div className="w-3/4 m-auto gap-2 font-semibold bg-transparent">
-                    <button
-                      className="w-[50%] p-2 rounded-lg bg-yellow-600 hover:bg-yellow-400 hover:text-secondary hover:transition-all disabled:cursor-not-allowed disabled:opacity-40 disabled:bg-secondary disabled:text-slate-800 disabled:border border-b-secondary"
-                      onClick={() => savedUrgentPatient(el._id)}
-                      disabled={urgentPatientsIDs.includes(el._id)}
-                    >
-                      {urgentPatientsIDs.includes(el._id)
-                        ? "Urgente!"
-                        : "Establecer como urgente"}
-                    </button>
-                  </div>
-                  <div className="w-3/4 m-auto gap-2 font-semibold bg-transparent">
-                    <button
-                      className="w-[50%] p-2 rounded-lg bg-red-700 hover:bg-red-500 hover:text-secondary hover:transition-all"
-                      onClick={() => deletePatient(el)}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
+
+              <div className="p-1.5 w-full inline-block align-middle">
+                <div className="overflow-hidden border rounded-lg">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                        >
+                          DNI
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                        >
+                          Nombre y apellido
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                        >
+                          Diagnostico
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                        >
+                          Profesional tratante
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                        >
+                          Prestador medico
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase"
+                        >
+                          Historia clinica
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
+                        >
+                          Borrar
+                        </th>
+                      </tr>
+                    </thead>
+                    {patients.map((el) => (
+                      <tbody key={el} className="divide-y divide-gray-200">
+                        <tr>
+                          <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
+                            {el.dni}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                            {el.name + " " + el.lastName}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                            {el.diagnostic}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                            {professionalName}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                            {el.medicalEntity}
+                          </td>
+                          <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                            <div className=" flex justify-around">
+                              <button
+                                className="text-green-500 hover:text-green-700"
+                                onClick={() => seeIndicatorsPatient(el)}
+                              >
+                                Ver historia
+                              </button>
+                              <button
+                                className="text-blue-500 hover:text-blue-700"
+                                onClick={() => navigate(`/update/${el._id}`)}
+                              >
+                                Actualizar historia
+                              </button>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                            <button
+                              className="text-red-500 hover:text-red-700"
+                              onClick={deletePatient}
+                            >
+                              Eliminar
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    ))}
+                  </table>
                 </div>
-              ))}
+              </div>
             </div>
           </>
         )}
