@@ -12,6 +12,8 @@ export const Register = () => {
     lastName: "",
     license: "",
     password: "",
+    userType: "",
+    secretKey: "",
   });
 
   const {
@@ -34,25 +36,30 @@ export const Register = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoadingAuth(true);
-    setErrorMsgBack("");
-    setErrorMsgValidator("");
-    try {
-      await axios.post("http://localhost:5055/auth/register", registerValues);
-      setLoadingAuth(false);
-      navigate("/");
-    } catch (error) {
-      setLoadingAuth(false);
-      if (error.response.data.msg) {
-        console.log(error.response.data.msg);
-        setErrorMsgBack(error.response.data.msg);
+    if (registerValues.userType === "Admin" &&  registerValues.secretKey !== "Kytos") {
+      //e.preventDefault();
+      alert("Invalid Admin");
+    } else {
+      e.preventDefault();
+      setLoadingAuth(true);
+      setErrorMsgBack("");
+      setErrorMsgValidator("");
+      try {
+        await axios.post("http://localhost:5055/auth/register", registerValues);
+        setLoadingAuth(false);
+        navigate("/");
+      } catch (error) {
+        setLoadingAuth(false);
+        if (error.response.data.msg) {
+          console.log(error.response.data.msg);
+          setErrorMsgBack(error.response.data.msg);
+        }
+        if (error.response.data.errors[0].msg) {
+          console.log(error.response.data.errors[0].msg);
+          setErrorMsgValidator(error.response.data.errors[0].msg);
+        }
+        //console.log(error.response.data.msg);
       }
-      if (error.response.data.errors[0].msg) {
-        console.log(error.response.data.errors[0].msg);
-        setErrorMsgValidator(error.response.data.errors[0].msg);
-      }
-      //console.log(error.response.data.msg);
     }
   };
 
@@ -111,6 +118,36 @@ export const Register = () => {
               placeholder="Matricula/DNI"
               onChange={handleChange}
             />
+            <div>
+              Register As
+              <input
+                type="radio"
+                name="userType"
+                value="User"
+                onChange={handleChange}
+              />
+              User
+              <input
+                type="radio"
+                name="userType"
+                value="Admin"
+                onChange={handleChange}
+              />
+              Admin
+            </div>
+            {registerValues.userType == "Admin" ? (
+              <div className="mb-3">
+                <label>Secret Key</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="secretKey"
+                  placeholder="Secret Key"
+                  onChange={handleChange}
+                />
+              </div>
+            ) : null}
+
             {loadingAuth ? (
               <Loader />
             ) : (

@@ -17,6 +17,7 @@ router.post(
     check("password", "The password must have at least 6 characters").isLength({
       min: 6,
     }),
+    check("userType", "debe proveer un rol").notEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -25,7 +26,7 @@ router.post(
     }
 
     try {
-      const { name, lastName, password, license } = req.body;
+      const { name, lastName, password, license, userType } = req.body; //viene del front
 
       //si esta ya registrado
       const professionalRegistered = await ProfessionalModel.findOne({
@@ -43,6 +44,7 @@ router.post(
         lastName,
         password: hashedPassword,
         license,
+        userType,
       });
       await newProfessional.save();
 
