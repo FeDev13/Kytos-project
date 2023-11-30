@@ -11,14 +11,11 @@ import { MyContext } from "../context/PatientContext";
 import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
-  const professionalName = window.localStorage.getItem("professionalName");
   const professionalID = window.localStorage.getItem("professionalID");
   const [cookies] = useCookies(["access_token"]);
   const {
     patients,
     setPatients,
-    patientId,
-    setPatientId,
     urgentPatientsIDs,
     setUrgentPatientsIDs,
     urgentsPatients,
@@ -32,14 +29,19 @@ export const Home = () => {
   } = useContext(MyContext);
 
   const navigate = useNavigate();
-  //const [patients, setPatients] = useState([]);
-  //const [urgentPatientsIDs, setUrgentPatientsIDs] = useState([]);
-  // const [urgentsPatients, setUrgentsPatients] = useState([]);
-  // const [indicatorsPatient, setIndicatorsPatient] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [viewModal, setViewModal] = useState(false);
 
   const getPatientsForThisProfessional = async () => {
+    try {
+      const res = await axios.get(
+        `https://localhost:5055/patients/homePatients?professionalID=${professionalID}`
+      );
+      setPatients(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAllPatients = async () => {
     try {
       const res = await axios.get(`http://localhost:5055/patients/allPatients`);
       setPatients(res.data);
@@ -60,13 +62,10 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    getPatientsForThisProfessional();
+    getAllPatients();
     getUrgentsPatientsIDs();
     setLoading(false);
   }, []);
-
-  // console.log({patients});
-  // console.log({urgentPatientsIDs});
 
   const savedUrgentPatient = async (patientID) => {
     try {
@@ -129,8 +128,6 @@ export const Home = () => {
           </div>
         ) : (
           <>
-            {/*!!!!!!!!!! {patients.length === 0 ? 'Aun no tienes pacientes' : null} */}
-
             <div className="p-4 flex-col gap-4 w-full  overflow-y-auto ">
               <h1 className="w-3/4 m-auto px-4 font-PTSans font-bold text-3xl text-logo">
                 Pacientes
@@ -179,6 +176,12 @@ export const Home = () => {
                         </th>
                         <th
                           scope="col"
+                          className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                        >
+                          Proximo turno
+                        </th>
+                        <th
+                          scope="col"
                           className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase"
                         >
                           Historia clinica
@@ -204,10 +207,13 @@ export const Home = () => {
                             {el.diagnostic}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {professionalName}
+                            {el.attendingProfessional}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                             {el.medicalEntity}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                            {el.appointment}
                           </td>
                           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                             <div className=" flex justify-around">

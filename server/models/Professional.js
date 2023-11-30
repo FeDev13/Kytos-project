@@ -6,6 +6,7 @@ const ProfessionalSchema = new Schema({
   password: { type: String, required: true, trim: true },
   license: { type: Number, required: true, trim: true, unique: true },
   patients: [{ type: Schema.Types.ObjectId, ref: "Patient", required: true }],
+  admin: { type: Boolean },
   mostUrgentPatients: [{ type: Schema.Types.ObjectId, ref: "Patient" }],
 });
 

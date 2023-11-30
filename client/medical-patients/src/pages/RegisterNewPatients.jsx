@@ -27,7 +27,7 @@ export const RegisterNewPatients = () => {
   const getPatientById = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5055/patients/${professionalID}/${patientID}`
+        `http://localhost:5055/patients/${patientID}`
       );
 
       setNewPatient(res.data);
@@ -61,13 +61,16 @@ export const RegisterNewPatients = () => {
   const [newPatient, setNewPatient] = useState({
     name: "",
     lastName: "",
+    dni: 0,
     age: 0,
+    medicalEntity: "",
     weight: 0,
     height: 0,
     diagnostic: "",
     symptoms: [],
     image: "",
     appointment: "",
+    attendingProfessional: "",
     professionalID: professionalID,
   });
 
@@ -98,13 +101,16 @@ export const RegisterNewPatients = () => {
       setNewPatient({
         name: "",
         lastName: "",
+        dni: 0,
         age: 0,
+        medicalEntity: "",
         weight: 0,
         height: 0,
         diagnostic: "",
         symptoms: [],
         image: "",
         appointment: "",
+        attendingProfessional: "",
         professionalID: professionalID,
       });
     } catch (error) {
@@ -118,7 +124,7 @@ export const RegisterNewPatients = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:5055/patients/update/${professionalID}/${patientID}`,
+        `http://localhost:5055/patients/update/${patientID}`,
         newPatient
       );
       setLoadingRegisterPatient(false);
@@ -217,6 +223,21 @@ export const RegisterNewPatients = () => {
               >
                 <label
                   className="font-PTSans font-bold text-logo text-lg bg-white "
+                  htmlFor="attendingProfessional"
+                >
+                  Profesional:
+                </label>
+                <input
+                  className="rounded-sm h-7 bg-transparent border border-solid border-tertiary outline-none px-3 py-1 font-PTSans text-terborder-tertiary "
+                  type="text"
+                  name="attendingProfessional"
+                  value={newPatient.attendingProfessional}
+                  id="attendingProfessional"
+                  onChange={handleChange}
+                  autoComplete="off"
+                />
+                <label
+                  className="font-PTSans font-bold text-logo text-lg bg-white "
                   htmlFor="name"
                 >
                   Nombre:
@@ -242,6 +263,36 @@ export const RegisterNewPatients = () => {
                   name="lastName"
                   value={newPatient.lastName}
                   id="lastName"
+                  onChange={handleChange}
+                  autoComplete="off"
+                />
+                <label
+                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
+                  htmlFor="age"
+                >
+                  Dni:
+                </label>
+                <input
+                  className="rounded-sm h-7 bg-transparent border border-solid border-tertiary outline-none px-3 py-1 font-PTSans text-terborder-tertiary "
+                  type="number"
+                  name="dni"
+                  value={newPatient.dni}
+                  id="dni"
+                  onChange={handleChange}
+                  autoComplete="off"
+                />
+                <label
+                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
+                  htmlFor="age"
+                >
+                  Prestador medico:
+                </label>
+                <input
+                  className="rounded-sm h-7 bg-transparent border border-solid border-tertiary outline-none px-3 py-1 font-PTSans text-terborder-tertiary "
+                  type="text"
+                  name="medicalEntity"
+                  value={newPatient.medicalEntity}
+                  id="medicalEntity"
                   onChange={handleChange}
                   autoComplete="off"
                 />

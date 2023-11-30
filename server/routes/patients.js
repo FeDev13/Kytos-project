@@ -140,6 +140,7 @@ router.post("/registerPatient", verifyToken, async (req, res) => {
       symptoms: req.body.symptoms,
       appointment: req.body.appointment,
       medicalEntity: req.body.medicalEntity,
+      attendingProfessional: req.body.attendingProfessional,
       professional: req.body.professionalID,
     });
 
@@ -173,21 +174,9 @@ router.put("/urgentPatients", verifyToken, async (req, res) => {
 });
 
 //PUT - UPDATE PATIENT
-router.put("/update/:professionalID/:patientID", async (req, res) => {
+router.put("/update/:patientID", async (req, res) => {
   try {
-    const professionalID = req.params.professionalID;
     const patientID = req.params.patientID;
-
-    //Verificamos si existe el professional para el id pasado
-    const professional = await ProfessionalModel.findById(professionalID);
-    if (!professional)
-      return res.status(404).json({ msg: "Profesional no encontrado" });
-
-    //Verificamos si el patient esta en el array de patients
-    if (!professional.patients.includes(patientID))
-      return res
-        .status(404)
-        .json({ msg: "Paciente no encontrado para este profesional" });
 
     const updatedPatient = await PatientModel.findByIdAndUpdate(
       patientID,

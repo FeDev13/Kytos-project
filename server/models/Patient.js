@@ -15,6 +15,7 @@ const PatientSchema = new Schema({
   symptoms: [{ type: String }],
   appointment: { type: String },
   medicalEntity: { type: String },
+  attendingProfessional: { type: String },
   professional: {
     type: Schema.Types.ObjectId,
     ref: "Professional",
