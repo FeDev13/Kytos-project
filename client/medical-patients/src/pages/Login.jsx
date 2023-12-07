@@ -5,12 +5,16 @@ import { useCookies } from "react-cookie";
 import { Loader } from "../components/Loader";
 import { MyContext } from "../context/PatientContext";
 import logo from "../assets/Logo kytos_page-0001.jpg";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
+import { IconContext } from "react-icons";
 
 export const Login = () => {
   const [loginValues, setLoginValues] = useState({
     license: Number,
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const {
     errorMsgBack,
     setErrorMsgBack,
@@ -32,6 +36,10 @@ export const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginValues({ ...loginValues, [name]: value });
+  };
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (e) => {
@@ -96,14 +104,21 @@ export const Login = () => {
                 placeholder="Matricula"
                 onChange={handleChange}
               />
+
               <input
                 className="w-full rounded-lg h-11 bg-white border border-solid-white outline-none pl-3 font-PTSans text-black"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 value={loginValues.password}
                 placeholder="Password"
                 onChange={handleChange}
               />
+              <button type="button" onClick={handlePasswordVisibility}>
+                <IconContext.Provider value={{ color: "white", size: "2em" }}>
+                  {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                </IconContext.Provider>
+              </button>
+
               {loadingAuth ? (
                 <Loader />
               ) : (
@@ -134,6 +149,7 @@ export const Login = () => {
                 Login
               </button>
             </form>
+
             <p className="text-white text-center font-bold mt-2 text-sm">
               En caso de no ser profesional registrado ingrese sus datos
               <small className="font-PTSans  text-white text-sm hover:underline">

@@ -1,16 +1,21 @@
 /* eslint-disable react/prop-types */
+import { CgCloseO } from "react-icons/cg";
+import moment from "moment";
 
 export const Modal = ({ indicatorsPatient, setViewModal }) => {
   const {
+    _id,
     dni,
     name,
     lastName,
-    //age,
+    age,
+    createdAt,
     //height,
     //weight,
     diagnostic,
-    //symptoms,
+    symptoms,
     appointment,
+    medicalEntity,
   } = indicatorsPatient;
   return (
     <>
@@ -71,96 +76,91 @@ export const Modal = ({ indicatorsPatient, setViewModal }) => {
               </button>
             </div>
           </div> */}
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th scope="col" className="py-3 pl-4">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="checkbox-all"
-                      type="checkbox"
-                      className="text-blue-600 border-gray-200 rounded focus:ring-blue-500"
-                    />
-                    <label htmlFor="checkbox" className="sr-only">
-                      Checkbox
-                    </label>
-                  </div>
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                >
-                  DNI
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                >
-                  Nombre y apellido
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                >
-                  Diagnostico
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                >
-                  Proximo turno
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
-                ></th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
-                ></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              <tr className=" bg-white">
-                <td className="py-3 pl-4">
-                  <div className="flex items-center h-5">
-                    <input
-                      type="checkbox"
-                      className="text-blue-600 border-gray-200 rounded focus:ring-blue-500"
-                    />
-                    <label htmlFor="checkbox" className="sr-only">
-                      Checkbox
-                    </label>
-                  </div>
-                </td>
-                <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                  {dni}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                  {name + " " + lastName}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                  {diagnostic}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                  {appointment}
-                </td>
-                <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                  <button className="text-blue-500 hover:text-blue-700">
-                    Editar historia
+          <div className=" bg-white p-10 rounded-md">
+            <div className="absolute top-5 right-2 p-2 px-5 cursor-pointer">
+              {" "}
+              <CgCloseO onClick={() => setViewModal(false)} />
+            </div>
+
+            <div className="px-4 sm:px-0">
+              <h3 className="text-base font-semibold leading-7 text-gray-900">
+                Historia clinica
+              </h3>
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Nro de historia clinica
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {_id}
+                </dd>
+              </p>
+            </div>
+            <div className="mt-6 border-t border-gray-100">
+              <dl className="divide-y divide-gray-100">
+                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt className="text-sm font-medium leading-6 text-gray-900">
+                    Nombre y apellido
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {name}
+                    {lastName}
+                  </dd>
+                  <dt className="text-sm font-medium leading-6 text-gray-900">
+                    Dni
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {dni}
+                  </dd>
+                </div>
+                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt className="text-sm font-medium leading-6 text-gray-900">
+                    Edad
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {age}
+                  </dd>
+                </div>
+                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt className="text-sm font-medium leading-6 text-gray-900">
+                    Prestador medico
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {medicalEntity}
+                  </dd>
+                </div>
+                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt className="text-sm font-medium leading-6 text-gray-900">
+                    Sintomas
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {symptoms}
+                  </dd>
+                </div>
+                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt className="text-sm font-medium leading-6 text-gray-900">
+                    Diagnostico
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {diagnostic}
+                  </dd>
+                  <dt className="text-sm font-medium leading-6 text-gray-900">
+                    Primera consulta
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {moment(createdAt).format("DD-MM-YYYY")}
+                  </dd>
+                </div>
+                <div className=" flex justify-between p-2">
+                  <button className=" bg-red-500 rounded-md p-2 text-white">
+                    Eliminar
                   </button>
-                </td>
-                <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                  <button
-                    className="text-red-500 hover:text-red-700"
-                    onClick={() => setViewModal(false)}
-                  >
-                    Cerrar
+                  <button className=" bg-slate-500 rounded-md p-2 text-white">
+                    Modificar estado
                   </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+              </dl>
+            </div>
+          </div>
         </div>
       </div>
       <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>

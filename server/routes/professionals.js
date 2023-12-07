@@ -6,6 +6,20 @@ const { check, validationResult } = require("express-validator");
 
 const router = express.Router();
 
+//GET PROFESSIONAL BY ID
+
+router.get("/:professionalID", async (req, res) => {
+  const { professionalID } = req.params;
+
+  try {
+    const professional = await ProfessionalModel.findById(professionalID);
+    return res.status(200).json(professional);
+  } catch (error) {
+    console.error("Error al buscar medico:", error);
+    return res.status(500).json({ error: "Error del servidor" });
+  }
+});
+
 //*REGISTER:
 
 router.post(

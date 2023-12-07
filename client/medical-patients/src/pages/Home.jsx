@@ -1,5 +1,5 @@
 import { Sidebar } from "../components/Sidebar";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Topbar } from "../components/Topbar";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,10 +9,12 @@ import { Modal } from "../components/Modal";
 import { useCookies } from "react-cookie";
 import { MyContext } from "../context/PatientContext";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export const Home = () => {
   const professionalID = window.localStorage.getItem("professionalID");
   const [cookies] = useCookies(["access_token"]);
+  const [admin, setAdmin] = useState(false);
   const {
     patients,
     setPatients,
@@ -29,6 +31,19 @@ export const Home = () => {
   } = useContext(MyContext);
 
   const navigate = useNavigate();
+
+  const getProfessionalById = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5055/auth/${professionalID}`
+      );
+      if (res.data.userType == "Admin") {
+        setAdmin(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getPatientsForThisProfessional = async () => {
     try {
@@ -63,6 +78,7 @@ export const Home = () => {
 
   useEffect(() => {
     getAllPatients();
+    getProfessionalById();
     getUrgentsPatientsIDs();
     setLoading(false);
   }, []);
@@ -156,24 +172,14 @@ export const Home = () => {
                         >
                           Nombre y apellido
                         </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                        >
-                          Diagnostico
-                        </th>
+
                         <th
                           scope="col"
                           className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                         >
                           Profesional tratante
                         </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                        >
-                          Prestador medico
-                        </th>
+
                         <th
                           scope="col"
                           className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
@@ -186,12 +192,14 @@ export const Home = () => {
                         >
                           Historia clinica
                         </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
-                        >
-                          Borrar
-                        </th>
+                        {admin ? (
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
+                          >
+                            Borrar
+                          </th>
+                        ) : null}
                       </tr>
                     </thead>
                     {patients.map((el) => (
@@ -203,17 +211,13 @@ export const Home = () => {
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                             {el.name + " " + el.lastName}
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {el.diagnostic}
-                          </td>
+
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                             {el.attendingProfessional}
                           </td>
+
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {el.medicalEntity}
-                          </td>
-                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {el.appointment}
+                            {moment(el.appointment).format("DD-MM-YYYY")}
                           </td>
                           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                             <div className=" flex justify-around">
@@ -232,12 +236,14 @@ export const Home = () => {
                             </div>
                           </td>
                           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                            <button
-                              className="text-red-500 hover:text-red-700"
-                              onClick={deletePatient}
-                            >
-                              Eliminar
-                            </button>
+                            {admin ? (
+                              <button
+                                className="text-red-500 hover:text-red-700"
+                                onClick={deletePatient}
+                              >
+                                Eliminar
+                              </button>
+                            ) : null}
                           </td>
                         </tr>
                       </tbody>

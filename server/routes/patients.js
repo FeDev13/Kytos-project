@@ -116,15 +116,15 @@ router.post("/registerPatient", verifyToken, async (req, res) => {
   try {
     const professionalID = req.body.professionalID;
     //Envio a cloudinary la img para que responda con public_id y secure_url de la image:
-    let image;
+    /* let image;
     if (req.files.image) {
       const resImg = await uploadImage(req.files.image.tempFilePath);
       image = {
         url: resImg.secure_url,
-        public_id: resImg.public_id,
+        public_id: resImg.public_id, 
       };
       await fsExtra.remove(req.files.image.tempFilePath);
-    }
+    } */
 
     const professional = await ProfessionalModel.findById(professionalID);
 
@@ -135,7 +135,7 @@ router.post("/registerPatient", verifyToken, async (req, res) => {
       age: req.body.age,
       weight: req.body.weight,
       height: req.body.height,
-      image: image,
+      //image: image,
       diagnostic: req.body.diagnostic,
       symptoms: req.body.symptoms,
       appointment: req.body.appointment,

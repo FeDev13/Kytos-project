@@ -36,7 +36,10 @@ export const Register = () => {
   };
 
   const handleSubmit = async (e) => {
-    if (registerValues.userType === "Admin" &&  registerValues.secretKey !== "Kytos") {
+    if (
+      registerValues.userType === "Admin" &&
+      registerValues.secretKey !== "Kytos"
+    ) {
       //e.preventDefault();
       alert("Invalid Admin");
     } else {
@@ -118,31 +121,35 @@ export const Register = () => {
               placeholder="Matricula/DNI"
               onChange={handleChange}
             />
-            <div>
-              Register As
+            <div className=" flex justify-between text-white">
+              <h3 className=" mx-4">Registrarse como</h3>
               <input
+                className="mx-2"
                 type="radio"
                 name="userType"
                 value="User"
                 onChange={handleChange}
               />
-              User
+              <p className="mx-2"> Usuario</p>
               <input
+                className="mx-2"
                 type="radio"
                 name="userType"
                 value="Admin"
                 onChange={handleChange}
               />
-              Admin
+              Administrador
             </div>
             {registerValues.userType == "Admin" ? (
               <div className="mb-3">
-                <label>Secret Key</label>
+                <label className=" text-white mx-4">
+                  Clave de administrador
+                </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control rounded-md p-1"
                   name="secretKey"
-                  placeholder="Secret Key"
+                  placeholder="Clave"
                   onChange={handleChange}
                 />
               </div>
@@ -174,7 +181,7 @@ export const Register = () => {
                 registerValues.password === ""
               }
             >
-              Register
+              Registrarse
             </button>
           </form>
           <p className="text-white text-center font-bold mt-2 text-sm">

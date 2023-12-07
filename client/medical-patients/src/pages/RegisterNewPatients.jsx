@@ -43,7 +43,7 @@ export const RegisterNewPatients = () => {
   }, []);
 
   useEffect(() => {
-    const tomorrow = new Date(); // Get today's date
+    const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1); // Set the date to tomorrow
 
     // Formatting the date to display nicely (e.g., "Monday, November 25, 2023")
@@ -387,21 +387,6 @@ export const RegisterNewPatients = () => {
                   rows={2}
                 />
                 <label
-                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
-                  htmlFor="image"
-                >
-                  Foto de perfil:
-                </label>
-                <input
-                  className="block w-full text-sm text-logo border border-logo rounded-sm cursor-pointer bg-secondary dark:text-secondary focus:outline-none dark:bg-logo dark:border-logo dark:placeholder-secondary"
-                  type="file"
-                  name="image"
-                  id="image"
-                  onChange={(e) =>
-                    setNewPatient({ ...newPatient, image: e.target.files[0] })
-                  }
-                />
-                <label
                   className="font-PTSans font-bold text-logo text-lg  bg-white my-8"
                   htmlFor="image"
                 >
@@ -423,7 +408,7 @@ export const RegisterNewPatients = () => {
 
                     {appointmentDate && (
                       <p className="font-PTSans font-bold text-logo text-lg  bg-white">
-                        El proximo turno es :{" "}
+                        El proximo turno es :
                         {moment(selectedDate).format("DD-MM-YYYY")}
                       </p>
                     )}
