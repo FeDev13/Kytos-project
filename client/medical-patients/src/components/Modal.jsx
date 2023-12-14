@@ -14,13 +14,14 @@ export const Modal = ({ indicatorsPatient, setViewModal }) => {
     //weight,
     diagnostic,
     symptoms,
+    treatment,
     appointment,
     medicalEntity,
   } = indicatorsPatient;
   return (
     <>
       <div className=" w-[100%] mx-auto justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none backdrop-blur-sm bg-white/30">
-        <div className="relative my-6 mx-auto max-w-3xl w-96">
+        <div className="relative my-6 mx-auto w-1/2 h-[90%]">
           {/* <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
          
             <div className="flex items-start justify-center p-5 border-b border-solid border-slate-200 rounded-t bg-white">
@@ -144,13 +145,19 @@ export const Modal = ({ indicatorsPatient, setViewModal }) => {
                     {diagnostic}
                   </dd>
                   <dt className="text-sm font-medium leading-6 text-gray-900">
+                    Tratamiento
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {treatment}
+                  </dd>
+                  <dt className="text-sm font-medium leading-6 text-gray-900">
                     Primera consulta
                   </dt>
                   <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                     {moment(createdAt).format("DD-MM-YYYY")}
                   </dd>
                 </div>
-                <div className=" flex justify-between p-2">
+                <div className=" flex justify-around p-2">
                   <button className=" bg-red-500 rounded-md p-2 text-white">
                     Eliminar
                   </button>

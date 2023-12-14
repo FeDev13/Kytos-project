@@ -138,6 +138,7 @@ router.post("/registerPatient", verifyToken, async (req, res) => {
       //image: image,
       diagnostic: req.body.diagnostic,
       symptoms: req.body.symptoms,
+      treatment: req.body.treatment,
       appointment: req.body.appointment,
       medicalEntity: req.body.medicalEntity,
       attendingProfessional: req.body.attendingProfessional,

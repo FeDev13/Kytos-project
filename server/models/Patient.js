@@ -14,6 +14,7 @@ const PatientSchema = new Schema(
   }, */
     diagnostic: { type: String, trim: true, required: true },
     symptoms: [{ type: String }],
+    treatment: [{ type: String }],
     appointment: { type: String },
     medicalEntity: { type: String },
     attendingProfessional: { type: String },

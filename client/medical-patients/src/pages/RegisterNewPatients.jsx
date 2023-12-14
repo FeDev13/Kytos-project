@@ -68,6 +68,7 @@ export const RegisterNewPatients = () => {
     height: 0,
     diagnostic: "",
     symptoms: [],
+    treatment: "",
     image: "",
     appointment: "",
     attendingProfessional: "",
@@ -108,6 +109,7 @@ export const RegisterNewPatients = () => {
         height: 0,
         diagnostic: "",
         symptoms: [],
+        treatment: "",
         image: "",
         appointment: "",
         attendingProfessional: "",
@@ -164,7 +166,7 @@ export const RegisterNewPatients = () => {
       symptoms: [...newPatient.symptoms, ""],
     });
   };
-
+  
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
   };
@@ -381,6 +383,22 @@ export const RegisterNewPatients = () => {
                   name="diagnostic"
                   value={newPatient.diagnostic}
                   id="diagnostic"
+                  onChange={handleChange}
+                  autoComplete="off"
+                  cols={50}
+                  rows={2}
+                />
+                <label
+                  className="font-PTSans font-bold text-logo text-lg mt-2 bg-white"
+                  htmlFor="diagnostic"
+                >
+                  Tratamiento:
+                </label>
+                <textarea
+                  className="resize-none rounded-xl text-sm  bg-transparent border border-solid border-tertiary outline-none px-3 py-1 font-PTSans text-terborder-tertiary"
+                  name="treatment"
+                  value={newPatient.treatment}
+                  id="treatment"
                   onChange={handleChange}
                   autoComplete="off"
                   cols={50}
