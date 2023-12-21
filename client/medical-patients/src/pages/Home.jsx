@@ -133,6 +133,19 @@ export const Home = () => {
     setViewModal(true);
   };
 
+  const sortedPatients = [...patients].sort((a, b) => {
+    const lastNameA = a.lastName.toUpperCase();
+    const lastNameB = b.lastName.toUpperCase();
+  
+    if (lastNameA < lastNameB) {
+      return -1;
+    }
+    if (lastNameA > lastNameB) {
+      return 1;
+    }
+    return 0;
+  });
+
   return (
     <div className="w-full m-auto overflow-y-hidden">
       <Topbar />
@@ -197,19 +210,19 @@ export const Home = () => {
                             scope="col"
                             className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
                           >
-                            Borrar
+                            Accion
                           </th>
                         ) : null}
                       </tr>
-                    </thead>
-                    {patients.map((el) => (
+                    </thead> 
+                    {sortedPatients.map((el) => (
                       <tbody key={el} className="divide-y divide-gray-200">
                         <tr>
                           <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
                             {el.dni}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {el.name + " " + el.lastName}
+                            {el.lastName + " " + el.name}
                           </td>
 
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">

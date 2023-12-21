@@ -2,6 +2,7 @@
 import { CgCloseO } from "react-icons/cg";
 import moment from "moment";
 
+
 export const Modal = ({ indicatorsPatient, setViewModal }) => {
   const {
     _id,
@@ -103,8 +104,8 @@ export const Modal = ({ indicatorsPatient, setViewModal }) => {
                     Nombre y apellido
                   </dt>
                   <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    {name}
-                    {lastName}
+                    {name + " " + lastName}
+                    
                   </dd>
                   <dt className="text-sm font-medium leading-6 text-gray-900">
                     Dni
@@ -134,7 +135,7 @@ export const Modal = ({ indicatorsPatient, setViewModal }) => {
                     Sintomas
                   </dt>
                   <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    {symptoms}
+                    {symptoms + " "}
                   </dd>
                 </div>
                 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
