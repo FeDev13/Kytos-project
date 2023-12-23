@@ -18,6 +18,8 @@ export const Home = () => {
   const {
     patients,
     setPatients,
+    search,
+    setSearch,
     urgentPatientsIDs,
     setUrgentPatientsIDs,
     urgentsPatients,
@@ -29,6 +31,7 @@ export const Home = () => {
     viewModal,
     setViewModal,
   } = useContext(MyContext);
+  const [searchResult, setSearchResult] = useState([]);
 
   const navigate = useNavigate();
 
@@ -133,10 +136,14 @@ export const Home = () => {
     setViewModal(true);
   };
 
+  const handleInput = (e) => {
+    setSearch(e.target.value);
+  };
+
   const sortedPatients = [...patients].sort((a, b) => {
     const lastNameA = a.lastName.toUpperCase();
     const lastNameB = b.lastName.toUpperCase();
-  
+
     if (lastNameA < lastNameB) {
       return -1;
     }
@@ -145,6 +152,24 @@ export const Home = () => {
     }
     return 0;
   });
+
+  const handleSearch = () => {
+    const filteredPatients = sortedPatients.filter((patient) => {
+      const fullName = `${patient.name} ${patient.lastName}`.toLowerCase();
+      return fullName.includes(search.toLowerCase());
+    });
+    setSearchResult(filteredPatients);
+  };
+  const renderSearchResult = () => {
+    return searchResult.map((patient) => (
+      <div key={patient._id}>
+        {/* Render patient information */}
+        <p>{`${patient.name} ${patient.lastName}`}</p>
+        {/* Add additional components or UI elements to show patient data */}
+        {/* Add buttons or actions for savedUrgentPatient, deletePatient, etc. */}
+      </div>
+    ));
+  };
 
   return (
     <div className="w-full m-auto overflow-y-hidden">
@@ -161,13 +186,34 @@ export const Home = () => {
               <h1 className="w-3/4 m-auto px-4 font-PTSans font-bold text-3xl text-logo">
                 Pacientes
               </h1>
+              <input
+                type="search"
+                name=""
+                id=""
+                placeholder="buscar paciente"
+                className="my-8"
+                value={search}
+                onChange={handleInput}
+              />
+              <button
+                className=" bg-logo text-white p-2 font-semibold rounded-md mx-4"
+                onClick={handleSearch}
+              >
+                Buscar
+              </button>
+              {searchResult.length > 0 && (
+                <div>
+                  <h2>Search Result:</h2>
+                  {renderSearchResult()}
+                </div>
+              )}
               {viewModal && (
                 <Modal
                   indicatorsPatient={indicatorsPatient}
                   setViewModal={setViewModal}
                 />
               )}
-
+              
               <div className="p-1.5 w-full inline-block align-middle">
                 <div className="overflow-hidden border rounded-lg">
                   <table className="min-w-full divide-y divide-gray-200">
@@ -214,7 +260,7 @@ export const Home = () => {
                           </th>
                         ) : null}
                       </tr>
-                    </thead> 
+                    </thead>
                     {sortedPatients.map((el) => (
                       <tbody key={el} className="divide-y divide-gray-200">
                         <tr>

@@ -9,6 +9,7 @@ export const MyContextProvider = ({ children }) => {
     children: PropTypes.any,
   };
   const [patients, setPatients] = useState([]);
+  const [search, setSearch] = useState("");
   const [patientId, setPatientId] = useState([]);
   const [urgentPatientsIDs, setUrgentPatientsIDs] = useState([]);
   const [urgentsPatients, setUrgentsPatients] = useState([]);
@@ -25,6 +26,8 @@ export const MyContextProvider = ({ children }) => {
       value={{
         patients,
         setPatients,
+        search, 
+        setSearch,
         patientId,
         setPatientId,
         urgentPatientsIDs,
