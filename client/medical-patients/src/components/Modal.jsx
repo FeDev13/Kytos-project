@@ -1,7 +1,14 @@
 /* eslint-disable react/prop-types */
 import { CgCloseO } from "react-icons/cg";
 import moment from "moment";
-
+import { Pdf } from "./pdf";
+import {
+  PDFDownloadLink,
+  Document,
+  Page,
+  Text,
+  Image,
+} from "@react-pdf/renderer";
 
 export const Modal = ({ indicatorsPatient, setViewModal }) => {
   const {
@@ -16,68 +23,41 @@ export const Modal = ({ indicatorsPatient, setViewModal }) => {
     diagnostic,
     symptoms,
     treatment,
-    appointment,
+    //appointment,
     medicalEntity,
   } = indicatorsPatient;
+
+  const generatePDF = () => {
+    const MyDocument = () => (
+      <Document>
+        <Page>
+          <Image src="../assets/Logo kytos_page-0001.jpg" />
+          <Text>
+            Nombre: {indicatorsPatient.name} {indicatorsPatient.lastName}
+          </Text>
+          <Text>Edad: {indicatorsPatient.age}</Text>
+          <Text>Diagnosis: {indicatorsPatient.diagnostic}</Text>
+          <Text>Symptoms: {indicatorsPatient.symptoms.join(", ")}</Text>
+          {/* Include other patient data as needed */}
+        </Page>
+      </Document>
+    );
+
+    const pdfBlob = <MyDocument />;
+
+    return (
+      <PDFDownloadLink document={pdfBlob} fileName="historia_clinica.pdf">
+        {({ blob, url, loading, error }) =>
+          loading ? "Loading document..." : "Download PDF"
+        }
+      </PDFDownloadLink>
+    );
+  };
+
   return (
     <>
       <div className=" w-[100%] mx-auto justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none backdrop-blur-sm bg-white/30">
         <div className="relative my-6 mx-auto w-1/2 h-[90%]">
-          {/* <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-         
-            <div className="flex items-start justify-center p-5 border-b border-solid border-slate-200 rounded-t bg-white">
-              <h3 className="text-2xl font-semibold capitalize font-PTSans bg-white">
-                {name} {lastName}
-              </h3>
-            </div>
-        
-            <div className="relative p-6 flex-auto text-lg bg-white">
-              <ul className=" bg-white">
-                <li className="text-slate-500 font-PTSans my-1 text-center bg-white">
-                  Edad: {age} años.
-                </li>
-                <li className="text-slate-500 font-PTSans my-1 text-center bg-white">
-                  Peso: {weight} kg.
-                </li>
-                <li className="text-slate-500 font-PTSans my-1 text-center bg-white">
-                  Altura: {height} cms.
-                </li>
-                <li className="text-slate-500 font-PTSans my-1 text-center bg-white">
-                  IMC: {(weight / (height * height)).toFixed(2)} kg/m²
-                </li>
-                <li className="text-slate-500 font-PTSans my-1 text-center bg-white">
-                  Sintomas:
-                </li>
-                {symptoms
-                  .join(", ")
-                  .split(",")
-                  .map((symp, idx) => (
-                    <li
-                      className="text-slate-500 font-PTSans text-center bg-white"
-                      key={idx}
-                    >
-                      {symp.trim()}.
-                    </li>
-                  ))}
-                <li className="text-slate-500 font-PTSans my-1 text-center bg-white">
-                  Diagnostico: {diagnostic}.
-                </li>
-                <li className="text-slate-500 font-PTSans my-1 text-center bg-white">
-                  Proxima cita: {appointment}.
-                </li>
-              </ul>
-            </div>
-            
-            <div className="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b bg-white">
-              <button
-                className="bg-red-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 text-white"
-                type="button"
-                onClick={() => setViewModal(false)}
-              >
-                Cerrar
-              </button>
-            </div>
-          </div> */}
           <div className=" bg-white p-10 rounded-md">
             <div className="absolute top-5 right-2 p-2 px-5 cursor-pointer">
               {" "}
@@ -105,7 +85,6 @@ export const Modal = ({ indicatorsPatient, setViewModal }) => {
                   </dt>
                   <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                     {name + " " + lastName}
-                    
                   </dd>
                   <dt className="text-sm font-medium leading-6 text-gray-900">
                     Dni
@@ -165,6 +144,21 @@ export const Modal = ({ indicatorsPatient, setViewModal }) => {
                   <button className=" bg-slate-500 rounded-md p-2 text-white">
                     Modificar estado
                   </button>
+
+                  <PDFDownloadLink
+                    document={<Pdf patientData={indicatorsPatient} />}
+                    fileName="historia_clinica.pdf"
+                  >
+                    {({ blob, url, loading, error }) =>
+                      loading ? (
+                        "Loading document..."
+                      ) : (
+                        <button className=" bg-blue-500 rounded-md p-2 text-white">
+                          Descargar
+                        </button>
+                      )
+                    }
+                  </PDFDownloadLink>
                 </div>
               </dl>
             </div>

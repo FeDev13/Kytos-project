@@ -162,17 +162,38 @@ export const Home = () => {
   };
   const renderSearchResult = () => {
     return searchResult.map((patient) => (
-      <div key={patient._id}>
+      <div className=" my-10 flex" key={patient._id}>
         {/* Render patient information */}
-        <p>{`${patient.name} ${patient.lastName}`}</p>
-        {/* Add additional components or UI elements to show patient data */}
-        {/* Add buttons or actions for savedUrgentPatient, deletePatient, etc. */}
+        <tbody className="divide-y divide-gray-200">
+          <tr>
+            <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
+              {patient.lastName + " " + patient.name}
+            </td>
+
+            <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+              <div className=" flex justify-around">
+                <button
+                  className="text-green-500 hover:text-green-700 mx-8"
+                  onClick={() => seeIndicatorsPatient(patient)}
+                >
+                  Ver historia
+                </button>
+                <button
+                  className="text-blue-500 hover:text-blue-700"
+                  onClick={() => navigate(`/update/${patient._id}`)}
+                >
+                  Actualizar historia
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
       </div>
     ));
   };
 
   return (
-    <div className="w-full m-auto overflow-y-hidden">
+    <div className="w-full m-auto overflow-y-hidden bg-white">
       <Topbar />
       <div className="w-screen font-PTSans md:flex ">
         <Sidebar />
@@ -203,7 +224,7 @@ export const Home = () => {
               </button>
               {searchResult.length > 0 && (
                 <div>
-                  <h2>Search Result:</h2>
+                  <h2>Resultados:</h2>
                   {renderSearchResult()}
                 </div>
               )}
@@ -213,7 +234,7 @@ export const Home = () => {
                   setViewModal={setViewModal}
                 />
               )}
-              
+
               <div className="p-1.5 w-full inline-block align-middle">
                 <div className="overflow-hidden border rounded-lg">
                   <table className="min-w-full divide-y divide-gray-200">
