@@ -31,7 +31,10 @@ export const Modal = ({ indicatorsPatient, setViewModal }) => {
     const MyDocument = () => (
       <Document>
         <Page>
-          <Image src="../assets/Logo kytos_page-0001.jpg" />
+          <Image
+            src="https://i.ibb.co/fxvbZ6z/Logo-kytos-page-0001.jpg"
+            alt="Logo-kytos-page-0001"
+          />
           <Text>
             Nombre: {indicatorsPatient.name} {indicatorsPatient.lastName}
           </Text>

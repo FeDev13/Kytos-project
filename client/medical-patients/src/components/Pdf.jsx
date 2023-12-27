@@ -15,7 +15,8 @@ export const Pdf = ({ patientData }) => {
       <Page style={styles.page}>
         <View style={styles.section}>
           <Image
-            src="https://react-pdf.org/static/images/luke.jpg"
+            src="https://i.ibb.co/fxvbZ6z/Logo-kytos-page-0001.jpg"
+            alt="Logo-kytos-page-0001"
             style={styles.image}
           />
           <Text>
@@ -43,6 +44,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   image: {
-    borderRadius: 20,
+    width: 100,
+    borderRadius: 10,
+    marginBottom: 20,
   },
 });
